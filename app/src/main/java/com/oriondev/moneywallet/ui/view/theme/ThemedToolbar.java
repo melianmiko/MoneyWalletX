@@ -90,15 +90,16 @@ public class ThemedToolbar extends Toolbar implements ThemeEngine.ThemeConsumer 
     }
 
     private int getBackgroundColor(ITheme theme) {
-        if (mBackgroundColor != null) {
-            if (mBackgroundColor == BackgroundColor.COLOR_PRIMARY) {
-                return theme.getColorPrimary();
-            } else {
-                return theme.getColorPrimaryDark();
-            }
-        } else {
-            return theme.getColorPrimary();
-        }
+        return theme.getColorWindowBackground();
+//        if (mBackgroundColor != null) {
+//            if (mBackgroundColor == BackgroundColor.COLOR_PRIMARY) {
+//                return theme.getColorPrimary();
+//            } else {
+//                return theme.getColorPrimaryDark();
+//            }
+//        } else {
+//            return theme.getColorPrimary();
+//        }
     }
 
     private void setTitleTextColor(ITheme theme) {

@@ -63,7 +63,8 @@ public class ThemedMonthView extends MonthView implements ThemeEngine.ThemeConsu
     @Override
     public void onApplyTheme(ITheme theme) {
         if (mBackgroundColor != null) {
-            int background = mBackgroundColor.getColor(theme);
+//            int background = mBackgroundColor.getColor(theme);
+            int background = theme.getColorWindowBackground();
             int color = theme.getBestTextColor(background);
             setBackgroundColor(background);
             setDefaultColor(color);

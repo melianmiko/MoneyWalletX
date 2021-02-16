@@ -103,10 +103,11 @@ public class ThemedTabLayout extends TabLayout implements ThemeEngine.ThemeConsu
     }
 
     private int getBackgroundColor(ITheme theme) {
-        if (mBackgroundColor != null) {
-            return mBackgroundColor.getColor(theme);
-        } else {
-            return theme.getColorPrimary();
-        }
+        return theme.getColorWindowBackground();
+//        if (mBackgroundColor != null) {
+//            return mBackgroundColor.getColor(theme);
+//        } else {
+//            return theme.getColorPrimary();
+//        }
     }
 }

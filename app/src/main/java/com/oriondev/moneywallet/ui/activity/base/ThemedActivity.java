@@ -121,7 +121,7 @@ public abstract class ThemedActivity extends AppCompatActivity implements ThemeE
 
     protected void onThemeStatusBar(ITheme theme) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(theme.getColorPrimaryDark());
+            getWindow().setStatusBarColor(theme.getColorWindowBackground());
         }
     }
 
@@ -129,7 +129,7 @@ public abstract class ThemedActivity extends AppCompatActivity implements ThemeE
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             View decorView = getWindow().getDecorView();
             int systemUiVisibility = decorView.getSystemUiVisibility();
-            int statusBarColor = theme.getColorPrimaryDark();
+            int statusBarColor = theme.getColorWindowBackground();
             boolean isStatusBarLight = Utils.isColorLight(statusBarColor);
             if (isStatusBarLight) {
                 decorView.setSystemUiVisibility(systemUiVisibility | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);

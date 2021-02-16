@@ -99,7 +99,7 @@ public class ThemeEngine implements ITheme {
     private static final int[] DEFAULT_COLOR_WINDOW_BACKGROUND = new int[] {
             Color.parseColor("#FAFAFA"), // OK
             Color.parseColor("#212121"), // OK
-            Color.parseColor("#212121")  // OK
+            Color.parseColor("#000000")  // OK
     };
 
     private static final int[] DEFAULT_COLOR_RIPPLE = new int[] {
