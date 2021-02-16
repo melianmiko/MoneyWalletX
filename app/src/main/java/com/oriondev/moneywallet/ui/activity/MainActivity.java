@@ -19,7 +19,6 @@
 
 package com.oriondev.moneywallet.ui.activity;
 
-import android.content.ActivityNotFoundException;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -47,7 +46,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.mikepenz.materialdrawer.AccountHeader;
 import com.mikepenz.materialdrawer.AccountHeaderBuilder;
 import com.mikepenz.materialdrawer.Drawer;
@@ -60,7 +58,6 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.oriondev.moneywallet.R;
 import com.oriondev.moneywallet.broadcast.LocalAction;
-import com.oriondev.moneywallet.model.ColorIcon;
 import com.oriondev.moneywallet.model.Money;
 import com.oriondev.moneywallet.model.VectorIcon;
 import com.oriondev.moneywallet.model.WalletAccount;
@@ -84,12 +81,13 @@ import com.oriondev.moneywallet.ui.fragment.multipanel.TransactionMultiPanelView
 import com.oriondev.moneywallet.ui.fragment.singlepanel.OverviewSinglePanelFragment;
 import com.oriondev.moneywallet.ui.view.theme.ITheme;
 import com.oriondev.moneywallet.ui.view.theme.ThemeEngine;
-import com.oriondev.moneywallet.ui.view.theme.ThemedDialog;
 import com.oriondev.moneywallet.ui.view.theme.ThemedRecyclerView;
 import com.oriondev.moneywallet.utils.IconLoader;
 
 import java.util.Locale;
+import java.util.Objects;
 
+@SuppressWarnings("rawtypes")
 public class MainActivity extends BaseActivity implements DrawerController, AccountHeader.OnAccountHeaderListener, Drawer.OnDrawerItemClickListener, LoaderManager.LoaderCallbacks<Cursor>  {
 
     private static final String SAVED_SELECTION = "MainActivity::current_selection";
@@ -109,8 +107,6 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
     private static final int ID_SECTION_PEOPLE = 10;
     private static final int ID_SECTION_CALCULATOR = 11;
     private static final int ID_SECTION_CONVERTER = 12;
-    private static final int ID_SECTION_ATM = 13;
-    private static final int ID_SECTION_BANK = 14;
     private static final int ID_SECTION_SETTING = 15;
     private static final int ID_SECTION_SUPPORT_DEVELOPER = 16;
     private static final int ID_SECTION_ABOUT = 17;
@@ -184,8 +180,6 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
                         new DividerDrawerItem(),
                         createDrawerItem(ID_SECTION_CALCULATOR, R.drawable.ic_calculator_24dp, R.string.menu_calculator),
                         createDrawerItem(ID_SECTION_CONVERTER, R.drawable.ic_converter_24dp,R.string.menu_converter),
-//                        createDrawerItem(ID_SECTION_ATM, R.drawable.ic_credit_card_24dp, R.string.menu_search_atm),
-//                        createDrawerItem(ID_SECTION_BANK, R.drawable.ic_account_balance_24dp, R.string.menu_search_bank),
                         new DividerDrawerItem(),
                         createDrawerItem(ID_SECTION_SETTING, R.drawable.ic_settings_24dp, R.string.menu_setting),
 //                        createDrawerItem(ID_SECTION_SUPPORT_DEVELOPER, R.drawable.ic_favorite_border_black_24dp, R.string.menu_support_developer),
@@ -215,7 +209,6 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
         if (savedInstanceState != null) {
             mCurrentSelection = savedInstanceState.getLong(SAVED_SELECTION);
         } else {
-            // TODO maybe we can let the user to specify a preference for the first section to load
             mCurrentSelection = ID_SECTION_TRANSACTIONS;
         }
         mDrawer.setSelection(mCurrentSelection, true);
@@ -322,12 +315,6 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
                 case ID_SECTION_CONVERTER:
                     startActivity(new Intent(this, CurrencyConverterActivity.class));
                     break;
-//                case ID_SECTION_ATM:
-//                    showAtmSearchDialog();
-//                    break;
-//                case ID_SECTION_BANK:
-//                    showBankSearchDialog();
-//                    break;
                 case ID_SECTION_SUPPORT_DEVELOPER:
                     startActivity(new Intent(this, DonationActivity.class));
                     break;
@@ -343,52 +330,6 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
         mDrawer.closeDrawer();
         mDrawer.setSelection(mCurrentSelection, false);
         return true;
-    }
-
-//    private void showAtmSearchDialog() {
-//        ThemedDialog.buildMaterialDialog(this)
-//                .title(R.string.title_atm_search)
-//                .input(R.string.hint_atm_name, 0, false, new MaterialDialog.InputCallback() {
-//
-//                    @Override
-//                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-//                        Uri mapUri = Uri.parse("geo:0,0?q=atm " + input);
-//                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
-//                        try {
-//                            startActivity(mapIntent);
-//                        } catch (ActivityNotFoundException ignore) {
-//                            showActivityNotFoundDialog();
-//                        }
-//                    }
-//
-//                }).show();
-//    }
-//
-//    private void showBankSearchDialog() {
-//        ThemedDialog.buildMaterialDialog(this)
-//                .title(R.string.title_bank_search)
-//                .input(R.string.hint_bank_name, 0, false, new MaterialDialog.InputCallback() {
-//
-//                    @Override
-//                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-//                        Uri mapUri = Uri.parse("geo:0,0?q=bank " + input);
-//                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, mapUri);
-//                        try {
-//                            startActivity(mapIntent);
-//                        } catch (ActivityNotFoundException ignore) {
-//                            showActivityNotFoundDialog();
-//                        }
-//                    }
-//
-//                }).show();
-//    }
-//
-    private void showActivityNotFoundDialog() {
-        ThemedDialog.buildMaterialDialog(this)
-                .title(R.string.title_error)
-                .content(R.string.message_error_activity_not_found)
-                .positiveText(android.R.string.ok)
-                .show();
     }
 
     /**
@@ -484,7 +425,6 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
         mAccountHeader.clear();
         ITheme theme = ThemeEngine.getTheme();
         int iconColor = theme.isDark() ? Color.parseColor("#8AFFFFFF") : Color.parseColor("#8A000000");
-        int selectedIconColor = theme.getColorPrimary();
         int textColor = theme.isDark() ? Color.parseColor("#DEFFFFFF") : Color.parseColor("#DE000000");
         int selectedTextColor = theme.getColorPrimary();
         int selectedColor = theme.isDark() ? Color.parseColor("#202020") : Color.parseColor("#E8E8E8");
@@ -669,7 +609,7 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
                 ((ProfileSettingDrawerItem) profile).withSelectedColor(selectedColor);
             }
         }
-        recyclerView.getAdapter().notifyDataSetChanged();
+        Objects.requireNonNull(recyclerView.getAdapter()).notifyDataSetChanged();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -677,14 +617,14 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
         mDrawer.getDrawerLayout().setStatusBarBackgroundColor(theme.getColorWindowBackground());
     }
 
-    private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             if (intent != null) {
                 int action = intent.getIntExtra(BackupHandlerIntentService.ACTION, 0);
                 if (action == BackupHandlerIntentService.ACTION_RESTORE) {
-                    getSupportLoaderManager().restartLoader(LOADER_WALLETS, null, MainActivity.this);
+                    LoaderManager.getInstance(MainActivity.this).restartLoader(LOADER_WALLETS, null, MainActivity.this);
                 }
             }
         }
