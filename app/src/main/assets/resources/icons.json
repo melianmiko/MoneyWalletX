@@ -173,6 +173,12 @@
       "icons": [
         {
           "resource": "ic_icon_cocktail"
+        },
+        {
+          "resource": "ic_food_bread"
+        },
+        {
+          "resource": "ic_food_sweet"
         }
       ]
     },
