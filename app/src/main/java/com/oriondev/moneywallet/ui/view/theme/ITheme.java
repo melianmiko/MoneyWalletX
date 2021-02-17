@@ -30,6 +30,10 @@ public interface ITheme {
 
     int getColorAccent();
 
+    int getColorToolbarBackground();
+
+    int getColorStatusBar();
+
     ThemeEngine.Mode getMode();
 
     int getStyle();

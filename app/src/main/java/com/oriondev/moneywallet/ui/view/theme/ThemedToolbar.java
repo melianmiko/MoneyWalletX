@@ -37,44 +37,26 @@ import com.oriondev.moneywallet.R;
  */
 public class ThemedToolbar extends Toolbar implements ThemeEngine.ThemeConsumer {
 
-    private BackgroundColor mBackgroundColor;
-
     public ThemedToolbar(Context context) {
         super(context);
-        initialize(context, null, 0);
     }
 
     public ThemedToolbar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        initialize(context, attrs, 0);
     }
 
     public ThemedToolbar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        initialize(context, attrs, defStyleAttr);
-    }
-
-    private void initialize(Context context, AttributeSet attrs, int defStyleAttr) {
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.ThemedToolbar, defStyleAttr, 0);
-        try {
-            mBackgroundColor = BackgroundColor.fromValue(typedArray.getInt(R.styleable.ThemedToolbar_theme_backgroundColor, 0));
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            typedArray.recycle();
-        }
     }
 
     @Override
     public void onApplyTheme(ITheme theme) {
-        if (mBackgroundColor != null) {
-            int background = getBackgroundColor(theme);
-            setBackgroundColor(background);
-            setTitleTextColor(theme);
-            setOverflowButtonColor(theme);
-            setNavigationIconColor(theme);
-            setMenuIconColor(theme);
-        }
+        int background = theme.getColorToolbarBackground();
+        setBackgroundColor(background);
+        setTitleTextColor(theme);
+        setOverflowButtonColor(theme);
+        setNavigationIconColor(theme);
+        setMenuIconColor(theme);
     }
 
     @Override
@@ -89,21 +71,8 @@ public class ThemedToolbar extends Toolbar implements ThemeEngine.ThemeConsumer 
         setMenuIconColor(ThemeEngine.getTheme());
     }
 
-    private int getBackgroundColor(ITheme theme) {
-        return theme.getColorWindowBackground();
-//        if (mBackgroundColor != null) {
-//            if (mBackgroundColor == BackgroundColor.COLOR_PRIMARY) {
-//                return theme.getColorPrimary();
-//            } else {
-//                return theme.getColorPrimaryDark();
-//            }
-//        } else {
-//            return theme.getColorPrimary();
-//        }
-    }
-
     private void setTitleTextColor(ITheme theme) {
-        int background = getBackgroundColor(theme);
+        int background = theme.getColorToolbarBackground();
         int color = theme.getBestTextColor(background);
         setTitleTextColor(color);
         setSubtitleTextColor(color);
@@ -112,7 +81,7 @@ public class ThemedToolbar extends Toolbar implements ThemeEngine.ThemeConsumer 
     private void setOverflowButtonColor(ITheme theme) {
         Drawable drawable = getOverflowIcon();
         if (drawable != null) {
-            int background = getBackgroundColor(theme);
+            int background = theme.getColorToolbarBackground();
             int color = theme.getBestTextColor(background);
             super.setOverflowIcon(TintHelper.createTintedDrawable(drawable, color));
         }
@@ -121,7 +90,7 @@ public class ThemedToolbar extends Toolbar implements ThemeEngine.ThemeConsumer 
     private void setNavigationIconColor(ITheme theme) {
         Drawable drawable = getNavigationIcon();
         if (drawable != null) {
-            int background = getBackgroundColor(theme);
+            int background = theme.getColorToolbarBackground();
             int color = theme.getBestTextColor(background);
             if (drawable instanceof DrawerArrowDrawable) {
                 ((DrawerArrowDrawable) drawable).setColor(color);
@@ -135,7 +104,7 @@ public class ThemedToolbar extends Toolbar implements ThemeEngine.ThemeConsumer 
     private void setMenuIconColor(ITheme theme) {
         Menu menu = getMenu();
         if (menu != null) {
-            int background = getBackgroundColor(theme);
+            int background = theme.getColorToolbarBackground();
             int color = theme.getBestTextColor(background);
             for (int i = 0; i < menu.size(); i++) {
                 MenuItem item = menu.getItem(i);

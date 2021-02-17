@@ -42,7 +42,7 @@ public class ThemedEditText extends AppCompatEditText implements ThemeEngine.The
 
     @Override
     public void onApplyTheme(ITheme theme) {
-        int backgroundColor = theme.getColorWindowBackground();
+        int backgroundColor = theme.getColorToolbarBackground();
         setTextColor(theme.getBestTextColor(backgroundColor));
         setHintTextColor(theme.getBestHintColor(backgroundColor));
         TintHelper.setCursorTint(this, theme.getColorAccent());

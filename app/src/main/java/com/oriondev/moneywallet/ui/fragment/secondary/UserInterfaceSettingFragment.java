@@ -19,6 +19,7 @@
 
 package com.oriondev.moneywallet.ui.fragment.secondary;
 
+import android.app.Activity;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +38,7 @@ import com.oriondev.moneywallet.storage.preference.PreferenceManager;
 import com.oriondev.moneywallet.ui.fragment.dialog.CustomDigitSetupDialog;
 import com.oriondev.moneywallet.ui.preference.ColorPreference;
 import com.oriondev.moneywallet.ui.preference.ThemedListPreference;
+import com.oriondev.moneywallet.ui.preference.ThemedSwitchPreference;
 import com.oriondev.moneywallet.ui.view.theme.ITheme;
 import com.oriondev.moneywallet.ui.view.theme.ThemeEngine;
 import com.oriondev.moneywallet.utils.DateFormatter;
@@ -45,6 +47,7 @@ import java.text.DateFormatSymbols;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * Created by andrea on 07/03/18.
@@ -71,6 +74,7 @@ public class UserInterfaceSettingFragment extends PreferenceFragmentCompat imple
     private ColorPreference mColorPrimaryPreference;
     private ColorPreference mColorAccentPreference;
     private ThemedListPreference mThemeTypePreference;
+    private ThemedSwitchPreference mThemeColorizePreference;
 
     private ColorPicker mColorIncomePicker;
     private ColorPicker mColorExpensePicker;
@@ -92,6 +96,7 @@ public class UserInterfaceSettingFragment extends PreferenceFragmentCompat imple
         mColorPrimaryPreference = (ColorPreference) findPreference("theme_color_primary");
         mColorAccentPreference = (ColorPreference) findPreference("theme_color_accent");
         mThemeTypePreference = (ThemedListPreference) findPreference("theme_type");
+        mThemeColorizePreference = (ThemedSwitchPreference) findPreference("colorful_toolbar");
         onCreateFragments(getChildFragmentManager());
     }
 
@@ -197,6 +202,7 @@ public class UserInterfaceSettingFragment extends PreferenceFragmentCompat imple
         setupCurrentFirstDayOfMonth();
         setupCurrentGroupType();
         setupCurrentThemeType();
+        setupCurrentColorizeMode();
         // attach listeners to each preference to get notified when a value changes
         mCustomDigitsSetupPreference.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 
@@ -272,6 +278,17 @@ public class UserInterfaceSettingFragment extends PreferenceFragmentCompat imple
             }
 
         });
+        mThemeColorizePreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                ThemeEngine.setColorizeMode((Boolean) newValue);
+                return true;
+            }
+        });
+    }
+
+    private void setupCurrentColorizeMode() {
+        mThemeColorizePreference.setChecked(ThemeEngine.getColorizeMode());
     }
 
     @Override

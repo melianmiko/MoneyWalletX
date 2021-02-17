@@ -40,7 +40,7 @@ public class ThemedAppBarLayout extends AppBarLayout implements ThemeEngine.Them
 
     @Override
     public void onApplyTheme(ITheme theme) {
-        int background = theme.getColorWindowBackground();
+        int background = theme.getColorToolbarBackground();
         setBackgroundColor(background);
     }
 }

@@ -83,7 +83,7 @@ public class ThemedTextView extends AppCompatTextView implements ThemeEngine.The
                     break;
                 case OVER_COLOR_PRIMARY:
                 case OVER_COLOR_PRIMARY_DARK:
-                    setTextColor(theme.getBestTextColor(theme.getColorWindowBackground()));
+                    setTextColor(theme.getBestTextColor(theme.getColorToolbarBackground()));
                     break;
                 case OVER_COLOR_ACCENT:
                     setTextColor(theme.getBestTextColor(theme.getColorAccent()));

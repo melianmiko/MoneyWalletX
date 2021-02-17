@@ -614,7 +614,7 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     protected void onThemeStatusBar(ITheme theme) {
-        mDrawer.getDrawerLayout().setStatusBarBackgroundColor(theme.getColorWindowBackground());
+        mDrawer.getDrawerLayout().setStatusBarBackgroundColor(theme.getColorStatusBar());
     }
 
     private final BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {

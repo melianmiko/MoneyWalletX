@@ -42,6 +42,7 @@ public class ThemeEngine implements ITheme {
     private static final String COLOR_PRIMARY_DARK = "color_primary_dark";
     private static final String COLOR_ACCENT = "color_accent";
     private static final String MODE = "mode";
+    private static final String COLORIZED_TOOLBAR = "colorful_toolbar";
 
     private static final int DEFAULT_COLOR_PRIMARY = Color.parseColor("#3f51b5");
     private static final int DEFAULT_COLOR_PRIMARY_DARK = Color.parseColor("#303F9F");
@@ -198,6 +199,27 @@ public class ThemeEngine implements ITheme {
     }
 
     @UiThread
+    public static void setColorizeMode(boolean mode) {
+        if (sInstance != null) {
+            if (mode != sInstance.mPreferences.getBoolean(COLORIZED_TOOLBAR, false)) {
+                sInstance.mPreferences.edit().putBoolean(COLORIZED_TOOLBAR, mode).apply();
+                notifyObservers();
+            }
+        } else {
+            throw new RuntimeException("ThemeEngine not initialized!");
+        }
+    }
+
+    @UiThread
+    public static boolean getColorizeMode() {
+        if (sInstance != null) {
+            return sInstance.mPreferences.getBoolean(COLORIZED_TOOLBAR, false);
+        } else {
+            throw new RuntimeException("ThemeEngine not initialized!");
+        }
+    }
+
+    @UiThread
     private static void notifyObservers() {
         if (sInstance != null) {
             for (ThemeObserver observer : mThemeObserverList) {
@@ -244,6 +266,18 @@ public class ThemeEngine implements ITheme {
     @Override
     public int getColorAccent() {
         return noAlpha(mPreferences.getInt(COLOR_ACCENT, DEFAULT_COLOR_ACCENT));
+    }
+
+    @Override
+    public int getColorToolbarBackground() {
+        if(ThemeEngine.getColorizeMode()) return this.getColorPrimary();
+        return this.getColorWindowBackground();
+    }
+
+    @Override
+    public int getColorStatusBar() {
+        if(ThemeEngine.getColorizeMode()) return this.getColorPrimaryDark();
+        return this.getColorWindowBackground();
     }
 
     private int noAlpha(int color) {

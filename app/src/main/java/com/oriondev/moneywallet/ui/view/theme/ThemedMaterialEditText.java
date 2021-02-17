@@ -45,7 +45,7 @@ public class ThemedMaterialEditText extends MaterialEditText implements ThemeEng
 
     @Override
     public void onApplyTheme(ITheme theme) {
-        int backgroundColor = theme.getColorWindowBackground();
+        int backgroundColor = theme.getColorToolbarBackground();
         setTextColor(theme.getBestTextColor(backgroundColor));
         setFloatingLabelColorNormal(theme.getBestHintColor(backgroundColor));
         setHintTextColor(theme.getBestHintColor(backgroundColor));
