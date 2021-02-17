@@ -1,17 +1,11 @@
-# MoneyWallet - Expense Manager [BETA]
+**This is a fork of AndreAle94's MoneyWallet app: [Original source code](https://github.com/AndreAle94/moneywallet).**
+
+I created this because original app isn't fully FOSS, and because development process is too slow.
+
+I want to create a better app with more modern UI, and without any non-free libraries.
+
+# MoneyWalletX - Expense Manager
 [![License](https://img.shields.io/badge/license-GPL%20V3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
-[![Release](https://img.shields.io/github/release/AndreAle94/moneywallet.svg)](https://github.com/AndreAle94/moneywallet/releases/latest)
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/andreale94)
-
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png" 
-      alt="Download from Google Play" 
-      height="80">](https://play.google.com/store/apps/details?id=com.oriondev.moneywallet)
-[<img src="https://f-droid.org/badge/get-it-on.png"
-      alt="Get it on F-Droid"
-      height="80">](https://f-droid.org/en/packages/com.oriondev.moneywallet)
-      
-![Showcase](https://github.com/AndreAle94/moneywallet/raw/master/pictures/showcase.png)
-
 MoneyWallet is an application designed to help you keep track of your expenses. This repository contains the source code of the latest version, completely rewritten from scratch.
 
 ### Redistributing this app as your own is NOT permitted.
@@ -30,13 +24,7 @@ I have been working behind this project for a long time, originally born as a to
 As you may have noticed, the previous version on the PlayStore required a small in-app purchase to handle more than just one wallet. The idea was to invest the money earned to pay for my studies, unfortunately among the interest rates of the PlayStore and the local taxes of the individual countries the profit was practically derisory. I did not had the opportunity to continue the development with continuity due to the university and the little free time available. Only recently I had the opportunity to get the project in hand and I decided to make it open source. In this way, anyone who wants can contribute.
 
 ## Donations
-This project is completely free, I decided to completely remove the in-app purchase in favor of a donation policy. It contains no advertising and never will contain it. If you find this application useful you may consider the option of offering me a beer, in real life or through a donation. It would be a very appreciated gesture to support my work.
-
-- PayPal: https://www.paypal.me/andreale94
-- BTC: 1J3APoaFT2jcqRzpb8bEt2rwUn3mDpWE5U
-- BCH: qzaw9naw5c367r4du2eg6fvmkr7smwagru53lt67zl
-- ETH: 0x4ee996Bf75a89c75B18b4f0509c8c77B87D81392
-- LTC: LZW1AUMWN4BdUvSu8fujEYVLgqWH2HsLZs
+I'm not ready to receive donations, send all to [original app developer](https://github.com/AndreAle94/moneywallet) for now.
 
 ## Build
 You can compile the application very simply: just clone this repository locally to your computer and Android Studio will take care of the rest.
