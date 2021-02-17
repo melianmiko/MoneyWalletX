@@ -98,6 +98,9 @@
         },
         {
           "resource": "ic_icon_armchair_lamp"
+        },
+        {
+          "resource": "ic_home_pills"
         }
       ]
     },
@@ -179,6 +182,24 @@
         },
         {
           "resource": "ic_food_sweet"
+        },
+        {
+          "resource": "ic_food_basic"
+        },
+        {
+          "resource": "ic_food_chips"
+        },
+        {
+          "resource": "ic_food_coffee"
+        },
+        {
+          "resource": "ic_food_juice"
+        },
+        {
+          "resource": "ic_food_salt"
+        },
+        {
+          "resource": "ic_food_spaghetti"
         }
       ]
     },
@@ -205,6 +226,9 @@
         },
         {
           "resource": "ic_icon_equalizer"
+        },
+        {
+          "resource": "ic_tech_server"
         }
       ]
     },
