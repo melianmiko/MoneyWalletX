@@ -27,6 +27,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -58,6 +59,7 @@ import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.oriondev.moneywallet.R;
 import com.oriondev.moneywallet.broadcast.LocalAction;
+import com.oriondev.moneywallet.model.Icon;
 import com.oriondev.moneywallet.model.Money;
 import com.oriondev.moneywallet.model.VectorIcon;
 import com.oriondev.moneywallet.model.WalletAccount;
@@ -159,7 +161,7 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
     private void initializeNavigationDrawer() {
         mAccountHeader = new AccountHeaderBuilder()
                 .withActivity(this)
-                .withHeaderBackground(R.color.colorPrimary)
+//                .withHeaderBackground(R.color.colorPrimary)
                 .withOnAccountHeaderListener(this)
                 .build();
         mDrawer = new DrawerBuilder()
@@ -500,6 +502,10 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
         );
     }
 
+    public Drawable getIcon(Context context, Icon icon) {
+        return icon != null ? icon.getDrawable(this) : IconLoader.UNKNOWN.getDrawable(this);
+    }
+
     /**
      * Create a total wallet profile from returned cursor.
      * @param cursor not null that contains all available wallets.
@@ -565,9 +571,11 @@ public class MainActivity extends BaseActivity implements DrawerController, Acco
     }
 
     private void applyNavigationDrawerHeaderTheme(ITheme theme) {
-        int backgroundColor = theme.getColorPrimary();
+        int backgroundColor = theme.getDrawerBackgroundColor();
+        if(ThemeEngine.getColorizeMode()) backgroundColor = theme.getColorPrimary();
+
         int textColor = theme.getBestTextColor(backgroundColor);
-        mAccountHeader.setBackground(new ColorDrawable(theme.getColorPrimary()));
+        mAccountHeader.setBackground(new ColorDrawable(backgroundColor));
         View headerView = mAccountHeader.getView();
         TextView nameTextView = headerView.findViewById(com.mikepenz.materialdrawer.R.id.material_drawer_account_header_name);
         TextView emailTextView = headerView.findViewById(com.mikepenz.materialdrawer.R.id.material_drawer_account_header_email);

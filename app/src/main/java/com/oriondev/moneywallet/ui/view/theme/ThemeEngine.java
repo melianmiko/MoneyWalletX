@@ -118,7 +118,7 @@ public class ThemeEngine implements ITheme {
     private static final int[] DRAWER_BACKGROUND_COLOR = new int[] {
             Color.parseColor("#F9F9F9"),
             Color.parseColor("#303030"),
-            Color.parseColor("#303030")
+            Color.parseColor("#000000")
     };
 
     private static final int[] DRAWER_ICON_COLOR = new int[] {
@@ -136,7 +136,7 @@ public class ThemeEngine implements ITheme {
     private static final int[] DRAWER_SELECTED_ITEM_COLOR = new int[] {
             Color.parseColor("#E8E8E8"),
             Color.parseColor("#202020"),
-            Color.parseColor("#202020")
+            Color.parseColor("#121212")
     };
 
     private static final int INDEX_MODE_LIGHT = 0;
