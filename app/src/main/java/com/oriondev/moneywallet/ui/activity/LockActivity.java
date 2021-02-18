@@ -21,13 +21,16 @@ package com.oriondev.moneywallet.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.hardware.fingerprint.FingerprintManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.biometric.BiometricPrompt;
+import androidx.biometric.BiometricPrompt.AuthenticationCallback;
+import androidx.core.content.ContextCompat;
 
 import com.andrognito.patternlockview.PatternLockView;
 import com.andrognito.patternlockview.listener.PatternLockViewListener;
@@ -35,14 +38,13 @@ import com.andrognito.patternlockview.utils.PatternLockUtils;
 import com.andrognito.pinlockview.IndicatorDots;
 import com.andrognito.pinlockview.PinLockListener;
 import com.andrognito.pinlockview.PinLockView;
-import com.multidots.fingerprintauth.FingerPrintAuthCallback;
-import com.multidots.fingerprintauth.FingerPrintAuthHelper;
 import com.oriondev.moneywallet.R;
 import com.oriondev.moneywallet.model.LockMode;
 import com.oriondev.moneywallet.storage.preference.PreferenceManager;
 import com.oriondev.moneywallet.ui.activity.base.ThemedActivity;
 
 import java.util.List;
+import java.util.concurrent.Executor;
 
 /**
  * Created by andrea on 24/07/18.
@@ -147,53 +149,46 @@ public class LockActivity extends ThemedActivity {
     private String mNewCode = null;
     private int mCurrentStep = 0;
     private LockMode mCurrentLockMode;
-    private FingerPrintAuthHelper mFingerprintAuth;
+    private BiometricPrompt mBioPrompt;
+    private BiometricPrompt.PromptInfo mBioInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         unpackIntent(getIntent(), savedInstanceState);
         initializeUi(savedInstanceState);
-        mFingerprintAuth = FingerPrintAuthHelper.getHelper(this, new FingerPrintAuthCallback() {
-
+        Executor executor = ContextCompat.getMainExecutor(this);
+        mBioInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Authorize using fingerprint device...")
+                .setNegativeButtonText("Cancel")
+                .build();
+        mBioPrompt = new BiometricPrompt(this, executor, new AuthenticationCallback() {
             @Override
-            public void onNoFingerPrintHardwareFound() {
-                // not handled because the fingerprint availability is checked
-                // before starting this activity.
+            public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                onFingerprintScan(false);
             }
 
             @Override
-            public void onNoFingerPrintRegistered() {
-                mFingerprintHelpTextView.setText(R.string.help_fingerprint_not_initialized);
+            public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                onFingerprintScan(true);
             }
 
             @Override
-            public void onBelowMarshmallow() {
-                // not handled because the fingerprint availability is checked
-                // before starting this activity.
+            public void onAuthenticationFailed() {
+                onFingerprintScan(false);
             }
-
-            @Override
-            public void onAuthSuccess(FingerprintManager.CryptoObject cryptoObject) {
-                onFingerprintScan(true, 0, null);
-            }
-
-            @Override
-            public void onAuthFailed(int errorCode, String errorMessage) {
-                onFingerprintScan(false, errorCode, errorMessage);
-            }
-
         });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        mFingerprintAuth.startAuth();
+        if(mCurrentLockMode == LockMode.FINGERPRINT)
+            mBioPrompt.authenticate(mBioInfo);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putString(SS_NEW_CODE, mNewCode);
         outState.putInt(SS_CURRENT_STEP, mCurrentStep);
@@ -203,9 +198,7 @@ public class LockActivity extends ThemedActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            mFingerprintAuth.stopAuth();
-        }
+        mBioPrompt.authenticate(mBioInfo);
     }
 
     private void unpackIntent(Intent intent, Bundle savedInstanceState) {
@@ -574,7 +567,7 @@ public class LockActivity extends ThemedActivity {
         }
     }
 
-    private void onFingerprintScan(boolean recognized, int errorType, CharSequence message) {
+    private void onFingerprintScan(boolean recognized) {
         switch (mAction) {
             case ACTION_UNLOCK:
                 if (recognized) {
@@ -631,7 +624,6 @@ public class LockActivity extends ThemedActivity {
                         finish();
                     } else {
                         // the user has inserted two different codes, simply alert him and restart
-                        mCurrentStep = STEP_INSERT_NEW_CODE;
                         mFingerprintHelpTextView.setText(R.string.help_insert_fingerprint_failed);
                     }
                 }

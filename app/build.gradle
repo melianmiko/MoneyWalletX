@@ -116,6 +116,7 @@ dependencies {
     implementation 'com.itextpdf:itextpdf:5.5.13'
     implementation 'me.weishu:free_reflection:2.2.0'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'androidx.biometric:biometric:1.1.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     // google play dependencies
     proprietaryImplementation('com.dropbox.core:dropbox-core-sdk:3.0.8')
