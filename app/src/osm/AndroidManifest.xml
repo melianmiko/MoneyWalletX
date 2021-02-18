@@ -23,6 +23,7 @@
     package="com.oriondev.moneywallet">
 
     <application>
+        <!--suppress AndroidDomInspection -->
         <activity android:name=".ui.activity.PlacePickerActivity" />
     </application>
 

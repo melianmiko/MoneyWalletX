@@ -79,7 +79,7 @@ public abstract class SinglePanelFragment extends Fragment implements Toolbar.On
 
                 });
             } else {
-                floatingActionButton.setVisibility(View.GONE);
+                floatingActionButton.hide();
             }
         }
     }

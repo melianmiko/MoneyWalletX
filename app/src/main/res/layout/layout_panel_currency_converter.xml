@@ -41,24 +41,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:foreground="?attr/selectableItemBackground" >
+                android:focusable="true"
+                android:clickable="true" >
 
                 <ImageView
                     android:id="@+id/image_currency_from"
                     android:layout_width="@dimen/activity_currency_converter_image_size"
                     android:layout_height="@dimen/activity_currency_converter_image_size"
-                    android:layout_marginLeft="@dimen/activity_currency_converter_margin"
                     android:layout_marginStart="@dimen/activity_currency_converter_margin"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/hint_currency" />
 
                 <com.oriondev.moneywallet.ui.view.theme.ThemedTextView
                     android:id="@+id/text_currency_from"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_currency_from"
                     android:layout_toEndOf="@+id/image_currency_from"
-                    android:layout_marginLeft="@dimen/activity_currency_converter_text_margin"
                     android:layout_marginStart="@dimen/activity_currency_converter_text_margin"
                     android:textSize="@dimen/activity_currency_converter_text_size"
                     app:theme_textColor="textColorPrimary"
@@ -69,9 +68,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/text_currency_from"
                     android:layout_toEndOf="@+id/text_currency_from"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginLeft="@dimen/activity_currency_converter_margin"
                     android:layout_marginRight="@dimen/activity_currency_converter_margin"
@@ -87,24 +84,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.5"
-                android:foreground="?attr/selectableItemBackground" >
+                android:focusable="true"
+                android:clickable="true" >
 
                 <ImageView
                     android:id="@+id/image_currency_to"
                     android:layout_width="@dimen/activity_currency_converter_image_size"
                     android:layout_height="@dimen/activity_currency_converter_image_size"
-                    android:layout_marginLeft="@dimen/activity_currency_converter_margin"
                     android:layout_marginStart="@dimen/activity_currency_converter_margin"
-                    android:layout_centerVertical="true" />
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@string/hint_currency" />
 
                 <com.oriondev.moneywallet.ui.view.theme.ThemedTextView
                     android:id="@+id/text_currency_to"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/image_currency_to"
                     android:layout_toEndOf="@+id/image_currency_to"
-                    android:layout_marginLeft="@dimen/activity_currency_converter_text_margin"
                     android:layout_marginStart="@dimen/activity_currency_converter_text_margin"
                     android:textSize="@dimen/activity_currency_converter_text_size"
                     app:theme_textColor="textColorPrimary"
@@ -115,9 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/text_currency_to"
                     android:layout_toEndOf="@+id/text_currency_to"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentEnd="true"
                     android:layout_marginLeft="@dimen/activity_currency_converter_margin"
                     android:layout_marginRight="@dimen/activity_currency_converter_margin"

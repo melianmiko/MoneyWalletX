@@ -123,7 +123,7 @@ public abstract class SinglePanelActivity extends BaseActivity implements Toolba
 
                 });
             } else {
-                floatingActionButton.setVisibility(View.GONE);
+                floatingActionButton.hide();
             }
         }
     }

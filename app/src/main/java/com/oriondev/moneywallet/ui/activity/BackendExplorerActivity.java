@@ -155,20 +155,18 @@ public class BackendExplorerActivity extends SinglePanelActivity implements Swip
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_select_folder:
-                if (mActivityMode == MODE_FOLDER_PICKER) {
-                    IFile folder = getCurrentFolder();
-                    if (folder == null) {
-                        // return the root folder of the device instead of null
-                        folder = DiskBackendServiceAPI.getRootFolder();
-                    }
-                    Intent intent = new Intent();
-                    intent.putExtra(RESULT_FILE, folder);
-                    setResult(RESULT_OK, intent);
-                    finish();
+        if (item.getItemId() == R.id.action_select_folder) {
+            if (mActivityMode == MODE_FOLDER_PICKER) {
+                IFile folder = getCurrentFolder();
+                if (folder == null) {
+                    // return the root folder of the device instead of null
+                    folder = DiskBackendServiceAPI.getRootFolder();
                 }
-                break;
+                Intent intent = new Intent();
+                intent.putExtra(RESULT_FILE, folder);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
         }
         return false;
     }
@@ -242,7 +240,7 @@ public class BackendExplorerActivity extends SinglePanelActivity implements Swip
                 .show();
     }
 
-    private BroadcastReceiver mLocalBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mLocalBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {

@@ -99,7 +99,7 @@ public abstract class MultiPanelFragment extends Fragment implements MultiPanelC
 
                 });
             } else {
-                mFloatingActionButton.setVisibility(View.GONE);
+                mFloatingActionButton.hide();
             }
         }
     }

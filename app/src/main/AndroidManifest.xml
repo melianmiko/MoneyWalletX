@@ -23,7 +23,10 @@
     package="com.oriondev.moneywallet">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- TODO: Don't use legacy storage -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -96,6 +99,7 @@
         <activity android:name=".ui.activity.DonationActivity" />
         <activity android:name=".ui.activity.ImportExportActivity" />
 
+        <!--suppress AndroidDomInspection -->
         <provider
             android:name=".storage.database.DataContentProvider"
             android:authorities="${applicationId}.storage.data"

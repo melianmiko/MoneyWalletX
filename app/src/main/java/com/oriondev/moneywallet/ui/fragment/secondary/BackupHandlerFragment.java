@@ -63,6 +63,7 @@ import com.oriondev.moneywallet.ui.view.theme.ThemedDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by andrea on 21/11/18.
@@ -234,7 +235,7 @@ public class BackupHandlerFragment extends Fragment implements BackupFileAdapter
 
             });
         } else {
-            floatingActionButton.setVisibility(View.GONE);
+            floatingActionButton.hide();
         }
         TextView coverTextView = view.findViewById(R.id.cover_text_view);
         Button coverActionButton = view.findViewById(R.id.cover_action_button);
@@ -365,7 +366,7 @@ public class BackupHandlerFragment extends Fragment implements BackupFileAdapter
                                     intent.putExtra(BackupHandlerIntentService.ACTION, BackupHandlerIntentService.ACTION_RESTORE);
                                     intent.putExtra(BackupHandlerIntentService.BACKUP_FILE, file);
                                     intent.putExtra(BackupHandlerIntentService.CALLER_ID, BACKUP_SERVICE_CALLER_ID);
-                                    getActivity().startService(intent);
+                                    requireActivity().startService(intent);
                                 }
 
                             })
@@ -386,7 +387,7 @@ public class BackupHandlerFragment extends Fragment implements BackupFileAdapter
                                     intent.putExtra(BackupHandlerIntentService.BACKUP_FILE, file);
                                     intent.putExtra(BackupHandlerIntentService.PASSWORD, input.toString());
                                     intent.putExtra(BackupHandlerIntentService.CALLER_ID, BACKUP_SERVICE_CALLER_ID);
-                                    getActivity().startService(intent);
+                                    requireActivity().startService(intent);
                                 }
 
                             })
@@ -406,7 +407,7 @@ public class BackupHandlerFragment extends Fragment implements BackupFileAdapter
                                     intent.putExtra(BackupHandlerIntentService.ACTION, BackupHandlerIntentService.ACTION_RESTORE);
                                     intent.putExtra(BackupHandlerIntentService.BACKUP_FILE, file);
                                     intent.putExtra(BackupHandlerIntentService.CALLER_ID, BACKUP_SERVICE_CALLER_ID);
-                                    getActivity().startService(intent);
+                                    requireActivity().startService(intent);
                                 }
 
                             })
@@ -434,7 +435,7 @@ public class BackupHandlerFragment extends Fragment implements BackupFileAdapter
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (!mBackendService.handlePermissionsResult(getActivity(), requestCode, permissions, grantResults)) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
@@ -447,7 +448,7 @@ public class BackupHandlerFragment extends Fragment implements BackupFileAdapter
         }
     }
 
-    private BroadcastReceiver mLocalBroadcastReceiver = new BroadcastReceiver() {
+    private final BroadcastReceiver mLocalBroadcastReceiver = new BroadcastReceiver() {
 
         @Override
         public void onReceive(Context context, Intent intent) {
