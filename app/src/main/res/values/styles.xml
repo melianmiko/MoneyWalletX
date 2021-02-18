@@ -25,6 +25,13 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
+    <style name="MoneyWalletAppTheme.LauncherTheme" parent="MoneyWalletAppTheme">
+        <item name="android:windowBackground">@drawable/bg_launcher</item>
+        <item name="colorPrimary">@color/splash_background</item>
+        <item name="colorPrimaryDark">@color/splash_background</item>
+        <item name="android:navigationBarColor">@color/splash_background</item>
+    </style>
+
     <style name="LightTheme" parent="MoneyWalletAppTheme"/>
 
     <style name="DarkTheme" parent="MoneyWalletAppTheme" />

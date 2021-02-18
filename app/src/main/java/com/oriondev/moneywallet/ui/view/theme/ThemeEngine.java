@@ -112,7 +112,7 @@ public class ThemeEngine implements ITheme {
     private static final int[] DEFAULT_DIALOG_BACKGROUND_COLOR = new int[] {
             Color.parseColor("#FFFFFF"), // OK
             Color.parseColor("#424242"), // OK
-            Color.parseColor("#424242")  // OK
+            Color.parseColor("#000000")  // OK
     };
 
     private static final int[] DRAWER_BACKGROUND_COLOR = new int[] {

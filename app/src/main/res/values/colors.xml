@@ -26,4 +26,6 @@
     <color name="textSecondary">#8A000000</color>
     <color name="textPrimaryInverted">#DEFFFFFF</color>
     <color name="textSecondaryInverted">#8AFFFFFF</color>
+    <color name="ic_launcher_background">#2498F3</color>
+    <color name="splash_background">#01579B</color>
 </resources>

@@ -54,6 +54,7 @@ public class LauncherActivity extends ThemedActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.MoneyWalletAppTheme);
         super.onCreate(savedInstanceState);
         if (UpgradeLegacyEditionIntentService.isLegacyEditionDetected(this)) {
             setContentView(R.layout.activity_launcher_legacy_edition_upgrade);
